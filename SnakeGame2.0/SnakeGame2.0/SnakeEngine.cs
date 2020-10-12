@@ -147,10 +147,12 @@ namespace SnakeGame2._0
             while (true)
             {
                 Console.WriteLine("To PAUSE PRESS ANY KEY OTHER THEN THE ARROWS");
-                Task.Run(() =>
-                {
-                    Key = Console.ReadKey(true).Key;
-                });
+                //Task.Run(() =>
+                //{
+                //    Key = Console.ReadKey(true).Key;
+                //});
+                if(Console.KeyAvailable) Key = Console.ReadKey(true).Key;
+
                 try
                 {
                     PrintBoard();
