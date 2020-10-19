@@ -68,8 +68,18 @@ namespace SnakeGame2._0
                 for (int j = 0; j < BoardSize; j++)
                 {
                     if (Board[i][j] == Wall) Console.Write("#");
-                    else if (Board[i][j] == Snake) Console.Write("o");
-                    else if (Board[i][j] == Food) Console.Write("@");
+                    else if (Board[i][j] == Snake)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.Write("o");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else if (Board[i][j] == Food)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("@");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
                     else Console.Write(" ");
                 }
                 Console.WriteLine();
@@ -99,16 +109,18 @@ namespace SnakeGame2._0
         private void Movement(int x, int y)
         {
 
+            if (Board[SnakeBody.Last().X + x][SnakeBody.Last().Y + y] == Food)
+            {
+                IsFoodReady = false;
+            }
             SnakeBody.Add(new Point(SnakeBody.Last().X + x, SnakeBody.Last().Y + y));
             SnakeBody.ForEach(x =>
             {
                 Board[x.X][x.Y] = Snake;
             });
-            if (Board[SnakeBody.Last().X + x][SnakeBody.Last().Y + y] == Food)
-            {
-                IsFoodReady = false;
-            }
-            else
+
+
+            if (!(Board[SnakeBody.Last().X + x][SnakeBody.Last().Y + y] == Food))
             {
                 Board[SnakeBody.First().X][SnakeBody.First().Y] = 0;
                 SnakeBody.RemoveAt(0);
@@ -123,21 +135,28 @@ namespace SnakeGame2._0
 
             //Board[i][j] = Food;
             //IsFoodReady = true;
-            while (true)
-            {
-                if (IsFoodReady == true) break;
-                else
-                {
-                    int i = rand.Next(3, BoardSize / 2 - 3);
-                    int j = rand.Next(3, BoardSize - 3);
-                    if (Board[i][j] == 0)
-                    {
-                        IsFoodReady = true;
-                        Board[i][j] = Food;
-                    }
-                }
+            //while (true)
+            //{
+            //    if (IsFoodReady == true) break;
+            //    else
+            //    {
+            //        int i = rand.Next(3, BoardSize / 2 - 3);
+            //        int j = rand.Next(3, BoardSize - 3);
+            //        if (Board[i][j] == 0)
+            //        {
+            //            IsFoodReady = true;
+            //            Board[i][j] = Food;
+            //        }
+            //    }
+            //}
 
-            }
+            int i = rand.Next(1, BoardSize / 2 - 2);
+            int j = rand.Next(1, BoardSize - 2);
+            if (Board[i][j] != 0) GenerateFood();
+
+            Board[i][j] = Food;
+            IsFoodReady = true;
+
         }
         public void Run()
         {
@@ -151,13 +170,14 @@ namespace SnakeGame2._0
                 //{
                 //    Key = Console.ReadKey(true).Key;
                 //});
-                if(Console.KeyAvailable) Key = Console.ReadKey(true).Key;
+                if (Console.KeyAvailable) Key = Console.ReadKey(true).Key;
 
                 try
                 {
                     PrintBoard();
                     MovebyKey();
-                    GenerateFood();
+                    if (IsFoodReady != true)
+                        GenerateFood();
 
                     Thread.Sleep(Speed);
                     Console.Clear();

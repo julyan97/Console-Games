@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace SnakeGame2._0
 {
@@ -6,8 +7,11 @@ namespace SnakeGame2._0
     {
         static void Main(string[] args)
         {
-            SnakeEngine eng = new SnakeEngine(50, 50);
+            SnakeEngine eng = new SnakeEngine(30, 50);
             eng.Run();
+
+            int[,] a = new int[5, 5];
+            
         }
     }
 }

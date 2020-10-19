@@ -128,6 +128,7 @@ namespace TronGame
                     break;
             }
         }
+        
         private void Movement(int x, int y, int player)
         {
 
