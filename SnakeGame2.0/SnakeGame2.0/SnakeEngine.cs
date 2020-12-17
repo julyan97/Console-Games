@@ -28,6 +28,7 @@ namespace SnakeGame2._0
         //Ctors
         public SnakeEngine()
         {
+            var p = new Point(1, 2);
             Row = 2;
             CopySpeed = Speed;
             Snake = 1;
@@ -61,7 +62,7 @@ namespace SnakeGame2._0
             }
 
         }
-        private void PrintBoard()
+        private void DrawBoard()
         {
             for (int i = 0; i < BoardSize / Row; i++)
             {
@@ -174,7 +175,7 @@ namespace SnakeGame2._0
 
                 try
                 {
-                    PrintBoard();
+                    DrawBoard();
                     MovebyKey();
                     if (IsFoodReady != true)
                         GenerateFood();

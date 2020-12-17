@@ -9,9 +9,6 @@ namespace SnakeGame2._0
         {
             SnakeEngine eng = new SnakeEngine(30, 50);
             eng.Run();
-
-            int[,] a = new int[5, 5];
-            
         }
     }
 }
